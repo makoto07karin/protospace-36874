@@ -21,7 +21,9 @@
            <% if user_signed_in? %>
                <div class="nav__right"> 
                   <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-                  <%= link_to "New Proto", root_path, class: :nav__btn %>
+                  <%= link_to "New Proto", new_prototype_path, class: :nav__btn %>
+                  <%#New ProtoがImage関係ならプロトタイプのNewに繋げばいいのか？%>
+                  <%#prototypes#newと考えてnew_prototype_path？%>
                </div> 
             <% else %>
               <%# // ログインしているときは上記を表示するようにしましょう %>

@@ -1,7 +1,6 @@
 class PrototypesController < ApplicationController
   def index
-    @prototype = Prototype.all
-    @prototypes = Prototype.all #Prototype.の後にはprototypeテーブルのカラムを入れる？
+    @prototypes = Prototype.all #Prototypesで記述するのがおすすめ
                                 #今回はここはallでOK！理由は＿prototypeのimage_tag(prototype.image）でimageを選択しているから
      
       #@prototypesの記述はindexのeachでprototypesテーブルから適したカラムを呼び出すため
@@ -52,6 +51,12 @@ class PrototypesController < ApplicationController
     else
       render :edit
     end  
+  end
+
+  def destroy
+    prototype = Prototype.find(params[:id])
+    prototype.destroy
+    redirect_to root_path #今回renderを使わないのは、renderの機能がviewアクションを通さないからredirect_toを使用する
   end
   
   private

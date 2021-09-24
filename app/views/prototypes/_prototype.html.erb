@@ -1,5 +1,6 @@
 <div class="card">
-  <%= link_to image_tag(prototype.image, class: :card__img ), root_path%>
+  <%= link_to image_tag(prototype.image, class: :card__img ), prototype_path(prototype.id)%>
+  <%# ここに(prototype.id)と記述する必要があるなぜが、prototype_pathだけだとrails routesのどのパスを求めているか分からないから%>
   <%# link_toとimage_tagの合わせ技 %>
   <div class="card__body">
     <%= link_to "プロトタイプのタイトル", root_path, class: :card__title %>

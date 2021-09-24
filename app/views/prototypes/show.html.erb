@@ -5,14 +5,15 @@
         <%= "プロトタイプのタイトル"%>
       </p>
       <%= link_to "by プロトタイプの投稿者", root_path, class: :prototype__user %>
-      <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
+      <% if user_signed_in? && current_user.id == @prototype.user_id %>
         <div class="prototype__manage">
           <%= link_to "編集する", root_path, class: :prototype__btn %>
           <%= link_to "削除する", root_path, class: :prototype__btn %>
         </div>
+      <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
       <div class="prototype__image">
-        <%= image_tag "プロトタイプの画像" %>
+        <%= image_tag  @prototype.image %>
       </div>
       <div class="prototype__body">
         <div class="prototype__detail">
@@ -30,15 +31,15 @@
       </div>
       <div class="prototype__comments">
         <%# ログインしているユーザーには以下のコメント投稿フォームを表示する %>
-          <%# <%= form_with model: モデル名,local: true do |f|%>
-            <div class="field">
-              <%# <%= f.label :hoge, "コメント" %><br />
-              <%# <%= f.text_field :hoge, id:"comment_content" %>
-            </div>
-            <div class="actions">
-              <%# <%= f.submit "送信する", class: :form__btn  %>
-            </div>
-          <%# <% end %>
+           <%= form_with model: @prototype,local: true do |f|%>
+              <div class="field">
+                 <%= f.label :text, "コメント" %>
+                 <%= f.text_field :text, id:"comment_content" %>
+              </div>
+              <div class="actions">
+                 <%= f.submit "送信する", class: :form__btn  %>
+              </div>
+           <% end %>
         <%# // ログインしているユーザーには上記を表示する %>
         <ul class="comments_lists">
           <%# 投稿に紐づくコメントを一覧する処理を記述する %>

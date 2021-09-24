@@ -19,7 +19,7 @@ class PrototypesController < ApplicationController
     @prototype = Prototype.new
   end
 
-  def show
+  def show #詳細ページ
     @prototype = Prototype.find(params[:id])
   end
       #Pathパラメータで送信されるID値で、Prototypeモデルの特定のオブジェクトを取得するように記述
@@ -41,6 +41,19 @@ class PrototypesController < ApplicationController
     end
   end
 
+  def edit
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def update
+    @prototype = Prototype.find(params[:id])#ここで変数という箱を作ってidを探す
+    if @prototype.update(prototype_params)#ここでストロングパラメーターでフィルターにかける
+      redirect_to prototype_path
+    else
+      render :edit
+    end  
+  end
+  
   private
           #ストロングパラメーターがここ！ストロングパラメーターの役割はコントローラーで制限をかける
           #バリデーションと少し似ている役割

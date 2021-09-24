@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="form__wrapper">
       <h2 class="page-heading">プロトタイプ編集</h2>
-      <%# 部分テンプレートでフォームを表示する %>
+      <%= render partial: "form", local: { prototype: @prototype } %><%#0924 _form.html.erbを呼び出す記述はこれであってるのか？%>
     </div>
   </div>
 </div>

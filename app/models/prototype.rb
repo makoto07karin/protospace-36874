@@ -3,6 +3,7 @@ class Prototype < ApplicationRecord
   validates :catch_copy, presence: true
   validates :concept,    presence: true
   validates :user,       presence: true
+  validates :image,      presence: true
 
 
   belongs_to :user

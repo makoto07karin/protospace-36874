@@ -23,12 +23,21 @@ class PrototypesController < ApplicationController
   end
 
   def show #詳細ページ
-   
-    @prototype = Prototype.find(params[:id])#ここでテーブルからparamsの中の:idを引き出しているのでは？findでは無くincludes(:user)で固定する？
+    @prototype = Prototype.find(params[:id])
     @comment = Comment.new #こことview /showがつながるなんで？
     @comments = @prototype.comments
     #includes(:user)を使用する？N+1 問題が発生しているのか？
   end
+        #Prototypeモデルから、何を持ってきているのか？
+        #今回はレコード一つ分を持ってきている
+        #それを記述しているのがfind(params[:id])
+        #これがPrototypeのレコード一つ分の情報
+        #なので、idが「１」の時は該当するレコードを１行を持ってくるので
+        #viewではカラムを選んでいる
+
+
+
+
       #Pathパラメータで送信されるID値で、Prototypeモデルの特定のオブジェクトを取得するように記述
       #というのは、なんのID値が欲しいのかまたPathパラメータは一意なソース例えばユーザーIDとかなんの値が欲しいのか
       #.find(params[:id])この形でテーブルからidを選んで表示してくれる今回何度もエラーが出たのは、Urlに引き出したidを入力していなかったらから
@@ -72,7 +81,8 @@ class PrototypesController < ApplicationController
           #バリデーションと少し似ている役割
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
-        #9/22 requireがテーブル・permitがカラムと画像に制限をかける・mergeが誰が動作させたか！
+        #ストロングパラメーターがモデル⇨カラムと順番に情報を保存していくのはわかるが最後のmerge(user_id: current_user.id)の意味は？
+        #ここが課題の一つ
   end
 
   def move_to_index

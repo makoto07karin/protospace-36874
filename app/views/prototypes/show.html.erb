@@ -4,12 +4,12 @@
       <p class="prototype__hedding">
         <%= "プロトタイプのタイトル"%>
       </p>
-      <%= link_to "by プロトタイプの投稿者", root_path, class: :prototype__user %>
+      <%= link_to "by プロトタイプの投稿者", user_path(current_user.id), class: :prototype__user %>
       <% if user_signed_in? && current_user.id == @prototype.user_id %>
         <div class="prototype__manage">
-          <%= link_to "編集する", edit_prototype_path, class: :prototype__btn %><%# ここのクラスはCSSで装飾するためのもの？%>
-          <%= link_to "削除する", prototype_path, class: :prototype__btn, method: :delete %>
-        </div><%# rails routesでVerにGETではないものはmethod: を記述する必要がある%>
+          <%= link_to "編集する", edit_prototype_path(@prototype.user_id), class: :prototype__btn %><%# ここのクラスはCSSで装飾するためのもの%>
+          <%= link_to "削除する", prototype_path(@prototype.id), class: :prototype__btn, method: :delete %>
+        </div> <%# rails routesでVerにGETではないものはmethod: を記述する必要がある%>
       <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
       <div class="prototype__image">
@@ -30,8 +30,9 @@
         </div>
       </div>
       <div class="prototype__comments">
-        <%# ログインしているユーザーには以下のコメント投稿フォームを表示する %>
-           <%= form_with model: @prototype,local: true do |f|%>
+        <% if user_signed_in? %>
+           <%= form_with(model: [@prototype, @comment], local: true) do |f| %><%#１%>
+                
               <div class="field">
                  <%= f.label :text, "コメント" %>
                  <%= f.text_field :text, id:"comment_content" %>
@@ -40,16 +41,18 @@
                  <%= f.submit "送信する", class: :form__btn  %>
               </div>
            <% end %>
-        <%# // ログインしているユーザーには上記を表示する %>
+        <% end %>
         <ul class="comments_lists">
-          <%# 投稿に紐づくコメントを一覧する処理を記述する %>
+          <% @comments.each do |comment| %>
             <li class="comments_list">
-              <%# <%= " コメントのテキスト "%>
-              <%# <%= link_to "（ ユーザー名 ）", root_path, class: :comment_user %>
+               <%= comment.text %><%# ここがコメント（）textの中身で表示される%>
+               <%= link_to comment.user.name, root_path, class: :comment_user %>
             </li>
-          <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
+          <% end %>
         </ul>
       </div>
     </div>
   </div>
 </main>
+<%#１%>
+<%# ここの構造はネストになっているからだから、他のテーブルと繋がれる%>

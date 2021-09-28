@@ -2,18 +2,28 @@
   <div class="inner">
     <% if user_signed_in? %>
        <div class="greeting">
-        <p> こんにちは </p>
-        <%= link_to  current_user.name, root_path, class: :greeting__link%>
-    <% else %>
-        <%= link_to  "", root_path, class: :greeting__link%>
+         <p> こんにちは </p>
+         <%= link_to  current_user.name, user_path(current_user.id), class: :greeting__link%><%# ２%>
+      </div>
     <% end %>
     <div class="card__wrapper">
       <% @prototypes.each do |prototype| %>
         <%= render partial: "prototype", locals: { prototype: prototype } %>
       <% end %>
-      <%# 0923このままだと NoMethodErrorが出るここでは解決%できなそうなのでコントローラーに問題があるのでは？>
+     
       <%# ここの"prototype"は_prototypeにつながっている？>
       <%# 投稿機能実装後、部分テンプレートでプロトタイプ投稿一覧を表示する %>
     </div>
   </div>
 </main>
+
+
+<%# link_to  current_user.name,はcurrent_user.nameの名前がでる %>
+<%# その後ろがパス 今回別のコントローラーのshowページに繋げたい?%>
+<%# ２%>
+<%# current_userはデバイスの機能の一つなので今回は使用できるだから、テーブルから引っ張って来なくてもOK！%>
+<%# ３%>
+<%# ネストを使用するとparamsを共有できる%>
+<%# なので、コントローラー間を通すだけならパスを繋ぐだけで十分%>
+<%# ４%>
+<%# なぜ？どうしてを考える！例え直感でもなぜそう感じたかを考える%>

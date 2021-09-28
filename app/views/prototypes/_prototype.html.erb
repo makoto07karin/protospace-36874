@@ -1,14 +1,17 @@
 <div class="card">
-  <%= link_to image_tag(prototype.image, class: :card__img ), prototype_path(prototype.id)%>
-  <%# ここに(prototype.id)と記述する必要があるなぜが、prototype_pathだけだとrails routesのどのパスを求めているか分からないから%>
-  <%# link_toとimage_tagの合わせ技 %>
+  <%= link_to image_tag(prototype.image, class: :card__img ), prototype_path(prototype.id)%><%#1%>
+
   <div class="card__body">
     <%= link_to "プロトタイプのタイトル", root_path, class: :card__title %>
     <p class="card__summary">
       <%= "プロトタイプのキャッチコピー" %>
     </p>
-    <%= link_to "by プロトタイプの投稿者名", root_path,  class: :card__user %>
+    <%= link_to "by プロトタイプの投稿者名", user_path(current_user.id),  class: :card__user %>
   </div>
 </div>
 
-
+<%#1%>
+  <%# ここに(prototype.id)と記述する必要があるなぜが、prototype_pathだけだとrails routesのどのパスを求めているか分からないから%>
+  <%# link_toとimage_tagの合わせ技 %>
+  <%# link_toの後ろは表示したいの例えば、下にあるタイトルとかがそれ今回は、%>
+<%#end%>

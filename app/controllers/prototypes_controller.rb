@@ -19,7 +19,11 @@ class PrototypesController < ApplicationController
   end
 
   def show #詳細ページ
-    @prototype = Prototype.find(params[:id])
+   
+    @prototype = Prototype.find(params[:id])#ここでテーブルからparamsの中の:idを引き出しているのでは？findでは無くincludes(:user)で固定する？
+    @comment = Comment.new #こことview /showがつながるなんで？
+    @comments = @prototype.comments
+    #includes(:user)を使用する？N+1 問題が発生しているのか？
   end
       #Pathパラメータで送信されるID値で、Prototypeモデルの特定のオブジェクトを取得するように記述
       #というのは、なんのID値が欲しいのかまたPathパラメータは一意なソース例えばユーザーIDとかなんの値が欲しいのか
@@ -32,11 +36,11 @@ class PrototypesController < ApplicationController
     @prototype = Prototype.new(prototype_params)
     if @prototype.save
       redirect_to root_path  #入力されたデータの保存先を指定できていない、わかっていない⇨⇨⇨⇨⇨⇨⇨⇨⇨prototypesテーブルとアクティブテーブルにCとMで制限をかけて保存される
-                               #今回0920はまだパスは実装しなくて良いのでroot_pathを使用
+                              #今回0920はまだパスは実装しなくて良いのでroot_pathを使用
                               #ここで入力されたデータをdbに入れたい⇨そのための保存機能
     else
       render :new
-      #今回はnewでOK
+      #今回はnewでOK理由は、コントローラー内のアクションだから！
     end
   end
 
@@ -67,3 +71,6 @@ class PrototypesController < ApplicationController
         #9/22 requireがテーブル・permitがカラムと画像に制限をかける・mergeが誰が動作させたか！
   end
 end
+
+#＠を付けるとインスタンス変数になるそうするとviewでも使用可能になる
+#rails routesでパスを見るときは、/00/id/のidがなんなのか考える

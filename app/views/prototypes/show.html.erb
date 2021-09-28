@@ -4,7 +4,7 @@
       <p class="prototype__hedding">
         <%= "プロトタイプのタイトル"%>
       </p>
-      <%= link_to "by プロトタイプの投稿者", user_path(current_user.id), class: :prototype__user %>
+      <%= link_to "by プロトタイプの投稿者", user_path(@prototype.user_id), class: :prototype__user %>
       <% if user_signed_in? && current_user.id == @prototype.user_id %>
         <div class="prototype__manage">
           <%= link_to "編集する", edit_prototype_path(@prototype.user_id), class: :prototype__btn %><%# ここのクラスはCSSで装飾するためのもの%>

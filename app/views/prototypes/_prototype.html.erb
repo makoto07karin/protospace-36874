@@ -6,7 +6,7 @@
     <p class="card__summary">
       <%= "プロトタイプのキャッチコピー" %>
     </p>
-    <%= link_to "by プロトタイプの投稿者名", user_path(current_user.id),  class: :card__user %>
+    <%= link_to "by プロトタイプの投稿者名", user_path(prototype.user.id),  class: :card__user %>
   </div>
 </div>
 

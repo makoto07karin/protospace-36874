@@ -1,4 +1,8 @@
 class PrototypesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]#1
+  before_action :move_to_index, only: [:edit]
+#1 authenticate_user!の効果が:new, :edit, :destroyだけに出るように記述したがこれが間違い？
+
   def index
     @prototypes = Prototype.all #Prototypesで記述するのがおすすめ
                                 #今回はここはallでOK！理由は＿prototypeのimage_tag(prototype.image）でimageを選択しているから
@@ -70,6 +74,14 @@ class PrototypesController < ApplicationController
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
         #9/22 requireがテーブル・permitがカラムと画像に制限をかける・mergeが誰が動作させたか！
   end
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
+    end
+  end
+
+
 end
 
 #＠を付けるとインスタンス変数になるそうするとviewでも使用可能になる

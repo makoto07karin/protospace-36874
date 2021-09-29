@@ -2,11 +2,11 @@
   <%= link_to image_tag(prototype.image, class: :card__img ), prototype_path(prototype.id)%><%#1%>
 
   <div class="card__body">
-    <%= link_to "プロトタイプのタイトル", root_path, class: :card__title %>
+    <%= link_to prototype.title, prototype_path(prototype.id), class: :card__title %>
     <p class="card__summary">
-      <%= "プロトタイプのキャッチコピー" %>
+      <%= prototype.catch_copy %>
     </p>
-    <%= link_to "by プロトタイプの投稿者名", user_path(prototype.user.id),  class: :card__user %>
+    <%= link_to prototype.user.name, user_path(prototype.user.id),  class: :card__user %>
   </div>
 </div>
 
@@ -15,3 +15,7 @@
   <%# link_toとimage_tagの合わせ技 %>
   <%# link_toの後ろは表示したいの例えば、下にあるタイトルとかがそれ今回は、%>
 <%#end%>
+
+<%#prototype.user.nameの記述について
+ここは、プロトのモデルがユーザーのテーブルにアソシエーションで
+繋がっているのでモデル.モデル.カラムで記述した有ってる？%>

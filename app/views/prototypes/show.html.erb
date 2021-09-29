@@ -49,7 +49,7 @@
           <% @comments.each do |comment| %>
             <li class="comments_list">
                <%= comment.text %><%# ここがコメント（）textの中身で表示される%>
-               <%= link_to comment.user.name, user_path(@prototype.user.id), class: :comment_user %><%#root_pathここをuser/showに遷移させたい%>
+               <%= link_to comment.user.name, user_path(comment.user.id), class: :comment_user %><%#A%>
             </li>
           <% end %>
         </ul>
@@ -59,3 +59,7 @@
 </main>
 <%#１%>
 <%# ここの構造はネストになっているからだから、他のテーブルと繋がれる%>
+
+<%#A user_path(@prototype.user.id)の記述の中身は、user_pathがユーザーshowのパスでこいつの引数に@prototypeで
+モデルからアソシエーションで繋がっているuserにいきそこからidを取得して遷移できる様にした
+やはり、 /users/:id(.:format) と表記されているパスに入るにはidが必要%>

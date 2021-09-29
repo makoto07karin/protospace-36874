@@ -77,7 +77,7 @@ class PrototypesController < ApplicationController
 
   def move_to_index
     @prototype = Prototype.find(params[:id])
-    unless user_signed_in? && current_user.id == @prototype.user_id 
+    unless user_signed_in? && current_user.id == @prototype.user_id #A
       redirect_to action: :index
     end
   end
@@ -87,3 +87,7 @@ end
 
 #＠を付けるとインスタンス変数になるそうするとviewでも使用可能になる
 #rails routesでパスを見るときは、/00/id/のidがなんなのか考える
+
+#A
+#今回は、ログインしてない人が編集ページである:editに入れないようにした
+#move_to_indexはコントローラー内なのでインスタンス変数の定義が必須
